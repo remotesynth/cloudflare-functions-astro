@@ -15,6 +15,7 @@ const handleGet = async (event) => {
   const cache = caches.default;
 
   let response = await cache.match(cacheKey);
+  let nextResponse;
 
   if (!response) {
     console.log(
@@ -25,10 +26,12 @@ const handleGet = async (event) => {
 
     response.headers.append("Cache-Control", "s-maxage=10");
     event.waitUntil(cache.put(cacheKey, response.clone()));
+    nextResponse = response;
   } else {
     console.log(`Cache hit for: ${request.url}.`);
+    nextResponse = await event.next();
   }
-  const nextResponse = await event.next();
+
   // clone and create a new response because
   // otherwise you get errors modifying the content type
   const clonedResponse = nextResponse.clone();
