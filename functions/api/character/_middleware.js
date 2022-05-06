@@ -22,9 +22,10 @@ const handleGet = async (event) => {
     );
 
     response = await event.next();
+    response = response.clone();
 
     response.headers.append("Cache-Control", "s-maxage=10");
-    event.waitUntil(cache.put(cacheKey, response.clone()));
+    event.waitUntil(cache.put(cacheKey, response));
   } else {
     console.log(`Cache hit for: ${request.url}.`);
   }
