@@ -29,7 +29,7 @@ const handleGet = async (event) => {
     console.log(`Cache hit for: ${request.url}.`);
   }
   const nextResponse = await event.next();
-  nextResponse.headers.append("Content-Type", "application/json");
+  nextResponse.headers.set("Content-Type", "application/json");
   return new Response(response.body, nextResponse);
 };
 
