@@ -2,19 +2,7 @@
 
 ---
 
-<script>
-const res = await fetch('/api/characters/all');
-const characters = await res.json();
 
-characters.characters.forEach(character => {
-	const node = document.createElement("li");
-	const link = document.createElement("a");
-	link.href = `/character/${character.id}`;
-	link.innerText = character.name;
-	node.appendChild(link);
-	document.getElementById("characters").appendChild(node);
-});
-</script>
 <html lang="en">
 	<head>
 		<meta charset="utf-8" />
