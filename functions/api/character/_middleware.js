@@ -28,7 +28,7 @@ const handleGet = async (event) => {
   } else {
     console.log(`Cache hit for: ${request.url}.`);
   }
-  const nextResponse = await event.next();
+  let nextResponse = await event.next();
 
   nextResponse = nextResponse.clone();
   nextResponse.headers.append("Content-Type", "application/json");
