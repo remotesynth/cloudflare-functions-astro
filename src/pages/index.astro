@@ -1,6 +1,20 @@
 ---
 
 ---
+
+<script>
+const res = await fetch('/api/characters/all');
+const characters = await res.json();
+
+characters.characters.forEach(character => {
+	const node = document.createElement("li");
+	const link = document.createElement("a");
+	link.href = `/character/${character.id}`;
+	link.innerText = character.name;
+	node.appendChild(link);
+	document.getElementById("characters").appendChild(node);
+});
+</script>
 <html lang="en">
 	<head>
 		<meta charset="utf-8" />
@@ -8,6 +22,7 @@
 		<title>Astro</title>
 	</head>
 	<body>
-		<h1>Astro</h1>
+		<h1>Characters:</h1>
+		<ul id="characters"></ul>
 	</body>
 </html>
