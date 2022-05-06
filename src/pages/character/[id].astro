@@ -1,6 +1,6 @@
 ---
 export async function getStaticPaths() {
-    const res = await fetch(`https://cloudflare-functions-astro.pages.dev/characters/all`);
+    const res = await fetch(`${import.meta.env.API_URL}/api/characters/all`);
     const characters = await res.json();
     const paths = characters.characters.map(character => ({
         params: {id: character.id}
@@ -16,7 +16,7 @@ try {
 } catch (error) {
     character = {
         name: 'API Failure',
-        image: ''
+        image: 
     }
 }
 
