@@ -22,17 +22,15 @@ const handleGet = async (event) => {
     );
 
     response = await event.next();
-    response = response.clone();
 
     response.headers.append("Cache-Control", "s-maxage=10");
-    event.waitUntil(cache.put(cacheKey, response));
+    event.waitUntil(cache.put(cacheKey, response.clone()));
   } else {
     console.log(`Cache hit for: ${request.url}.`);
   }
-  let nextResponse = await event.next();
+  const nextResponse = await event.next();
 
-  nextResponse = nextResponse.clone();
-  nextResponse.headers.append("Content-Type", "application/json");
+  //nextResponse.headers.append("Content-Type", "application/json");
   return new Response(response.body, nextResponse);
 };
 
