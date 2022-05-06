@@ -29,9 +29,13 @@ const handleGet = async (event) => {
     console.log(`Cache hit for: ${request.url}.`);
   }
   const nextResponse = await event.next();
+  // clone and create a new response because
+  // otherwise you get errors modifying the content type
+  const clonedResponse = nextResponse.clone();
+  const finalResponse = new Response(clonedResponse.body, clonedResponse);
 
-  //nextResponse.headers.append("Content-Type", "application/json");
-  return new Response(response.body, nextResponse);
+  finalResponse.headers.append("Content-Type", "application/json");
+  return new Response(response.body, finalResponse);
 };
 
 export const onRequest = [errorHandler];
