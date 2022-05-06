@@ -32,10 +32,10 @@ const handleGet = async (event) => {
   // clone and create a new response because
   // otherwise you get errors modifying the content type
   const clonedResponse = nextResponse.clone();
-  const finalResponse = new Response(clonedResponse.body, clonedResponse);
+  const finalResponse = new Response(response.body, clonedResponse);
 
   finalResponse.headers.append("Content-Type", "application/json");
-  return new Response(response.body, finalResponse);
+  return new Response(finalResponse.body, finalResponse);
 };
 
 export const onRequest = [errorHandler];
