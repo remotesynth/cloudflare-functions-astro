@@ -3,7 +3,8 @@
 ---
 
 <script>
-const res = await fetch(`${CF_PAGES_URL}/api/characters/all`);
+console.log(import.meta.env.PUBLIC_API_URL)
+const res = await fetch(`${import.meta.env.PUBLIC_API_URL}/characters/all`);
 const characters = await res.json();
 
 characters.characters.forEach(character => {
