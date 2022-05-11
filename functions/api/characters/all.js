@@ -12,6 +12,7 @@ export async function onRequestGet({ env }) {
   if (chrs.keys.length === 0) {
     data.results.forEach(async (chr) => {
       console.log("adding character: " + chr.name);
+      // I am not putting an expiration on this but I could
       await env.RICK_MORTY_CHRS.put(chr.id.toString(), chr.name);
     });
     chrs = await env.RICK_MORTY_CHRS.list();
@@ -30,7 +31,6 @@ export async function onRequestGet({ env }) {
     })
   );
   result.characters.sort((a, b) => {
-    console.log(Number(a.id) > Number(b.id));
     if (Number(a.id) > Number(b.id)) {
       return 1;
     }
