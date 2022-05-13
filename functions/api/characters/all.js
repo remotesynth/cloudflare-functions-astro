@@ -1,8 +1,4 @@
 export async function onRequestGet({ env }) {
-  const res = await fetch(`https://rickandmortyapi.com/api/character/`);
-  const data = await res.json();
-  const info = JSON.stringify(data, null, 2);
-
   let result = {
     characters: [],
   };
@@ -10,6 +6,9 @@ export async function onRequestGet({ env }) {
   let chrs = await env.RICK_MORTY_CHRS.list();
 
   if (chrs.keys.length === 0) {
+    const res = await fetch(`https://rickandmortyapi.com/api/character/`);
+    const data = await res.json();
+
     data.results.forEach(async (chr) => {
       console.log("adding character: " + chr.name);
       // I am not putting an expiration on this but I could
